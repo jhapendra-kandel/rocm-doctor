@@ -54,12 +54,12 @@ non-Ollama inference servers (llama.cpp/vLLM support is a later phase).
 
 ## Phases
 
-### Phase 0 — Scaffolding (current)
+### Phase 0 — Scaffolding — ✅ done (2026-09-18)
 - Repo structure, README, PLAN, LICENSE, CI skeleton
 - Package layout (`src/rocm_doctor/`), `pyproject.toml`, entry point
 - Empty check registry + one working example check (kernel version)
 
-### Phase 1 — Core checks (headless-server class of bugs)
+### Phase 1 — Core checks (headless-server class of bugs) — ✅ done (2026-09-18)
 - Kernel version vs. HWE requirement detection
 - `dmesg` grep for Display-Core init failure signature
 - `blacklist-amdgpu.conf` / modprobe.d leftover detection
@@ -67,22 +67,51 @@ non-Ollama inference servers (llama.cpp/vLLM support is a later phase).
 - Unit tests against captured/fixture `dmesg` and `lspci` output (no real
   GPU required to run the test suite — critical for CI)
 
-### Phase 2 — Ollama-specific checks
+### Phase 2 — Ollama-specific checks — ✅ done (2026-09-18)
 - `OLLAMA_HOST` binding check (systemd override.conf parsing)
 - `ollama ps` PROCESSOR column parser + CPU-fallback warning
 - Host-RAM-vs-model-size headroom heuristic
 
-### Phase 3 — Polish for real adoption
-- `--fix` flag that prints (never auto-runs) the exact remediation commands
-- GitHub Actions CI: lint, type-check, test matrix
-- Publish to PyPI
-- README with a real "before/after" demo GIF against a real failure
+### Phase 3 — Polish for real adoption — partially done
+- ✅ GitHub Actions CI: lint (ruff), test matrix (3.10/3.11/3.12)
+- ✅ README badges (CI/License/Python/Release)
+- ✅ Tagged + released v0.1.0 on GitHub (marked prerelease — honest about
+  no real-hardware validation yet)
+- ⬜ **Real-hardware validation** — every check is fixture-tested only;
+  none has run against an actual ROCm/AMD GPU host yet. This is the
+  single most important thing left before the prerelease flag can come
+  off. Candidate host: the `abc-gpu` box (see root workspace `CLAUDE.md`
+  for specs/access).
+- ⬜ `--fix` flag that prints (never auto-runs) the exact remediation
+  commands as a single copy-pasteable block (checks already carry a
+  `fix` field — this is just a CLI flag to print them cleanly together)
+- ⬜ Publish to PyPI (`pipx install rocm-doctor`) — hold until real-hardware
+  validation, per user's own priority call in the 2026-09-18 session
+- ⬜ README "before/after" demo GIF/asciinema against a real failure
 
-### Phase 4 — Community
-- Contribution guide for adding new checks (this is the actual OSS-growth
-  lever — checks should be crowd-sourced as new failure modes get reported)
-- Issue templates prompting for `dmesg`/`lspci` output so new failure
-  signatures can become new checks
+### Phase 4 — Community — partially done
+- ✅ CONTRIBUTING.md (report-a-failure-mode + add-a-check rules)
+- ✅ GitHub issue template for new failure modes (structured uname/dmesg/
+  lspci/rocminfo/ollama-ps fields)
+- ✅ Repo description + topics set for discoverability
+- ⬜ Submit to awesome-rocm / awesome-ollama / awesome-llmops lists
+- ⬜ Origin-story write-up (the R9700 headless-Display-Core debugging
+  session) — hold for public launch push, after hardware validation
+- ⬜ Answer real GitHub issues on Ollama/ROCm repos where relevant,
+  linking the tool only where it actually solves the reported problem
+
+## Next session: start here
+
+1. Get access to a real AMD/ROCm host (abc-gpu is the candidate) and run
+   `rocm-doctor` against it for real. Confirm each of the 7 checks fires
+   (or correctly doesn't fire) against actual system state, not just
+   fixtures. Fix anything that misfires — this is the #1 open item.
+2. Once validated: remove the "prerelease" flag from the GitHub release
+   (or cut a new v0.2.0), consider PyPI publish.
+3. Only after that: the public-launch push (origin-story post, r/ROCm /
+   r/LocalLLaMA / Show HN, awesome-list PRs) — see the growth-strategy
+   discussion in this project's chat history (2026-09-18 session) for
+   the full reasoning on why hardware validation gates this.
 
 ## Success criteria
 

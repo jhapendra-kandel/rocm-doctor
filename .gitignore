@@ -1,0 +1,19 @@
+# agent context files - kept local, never pushed
+CLAUDE.md
+CONTEXT.md
+.claude/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# os
+.DS_Store

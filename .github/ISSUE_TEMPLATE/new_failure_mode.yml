@@ -1,0 +1,58 @@
+name: New failure mode
+description: rocm-doctor missed a real problem, or flagged something that wasn't actually broken (false positive)
+title: "[failure mode] "
+labels: ["new-check"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this — new checks come directly from real reports like this one. See CONTRIBUTING.md for how this becomes a test fixture.
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+      description: What you expected rocm-doctor to say vs. what it actually said (or should have said).
+    validations:
+      required: true
+  - type: textarea
+    id: uname
+    attributes:
+      label: uname -r
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: dmesg
+    attributes:
+      label: "dmesg | grep -i amdgpu (or full dmesg if needed)"
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: lspci
+    attributes:
+      label: "lspci -vvv (GPU device section)"
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: rocminfo
+    attributes:
+      label: rocminfo output
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: ollama_ps
+    attributes:
+      label: "ollama ps output (if relevant)"
+      render: shell
+    validations:
+      required: false
+  - type: input
+    id: rocm_doctor_version
+    attributes:
+      label: rocm-doctor version
+      description: "output of: rocm-doctor --version"
+    validations:
+      required: true

@@ -1,5 +1,10 @@
 # rocm-doctor
 
+[![CI](https://github.com/jhapendra-kandel/rocm-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/jhapendra-kandel/rocm-doctor/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](pyproject.toml)
+[![Release](https://img.shields.io/github/v/release/jhapendra-kandel/rocm-doctor?include_prereleases)](https://github.com/jhapendra-kandel/rocm-doctor/releases)
+
 A diagnostic CLI for AMD GPU (ROCm) local LLM serving setups — the "why is my
 GPU not being used" and "why did my driver just die" checks that currently
 take hours of manual `dmesg`/`lspci`/`modprobe.d` spelunking to figure out.
@@ -46,6 +51,14 @@ rocm-doctor
 
 Not published to PyPI yet — pre-alpha. Run `rocm-doctor --json` for
 machine-readable output, `rocm-doctor --no-color` for plain text.
+
+## Contributing
+
+Hit a failure mode this tool doesn't catch yet? That's the actual
+growth path for this project — see [CONTRIBUTING.md](CONTRIBUTING.md) for
+how to turn it into a new check, and please include your `dmesg`/`lspci
+-vvv`/`uname -r` output when opening an issue (there's an issue template
+for it).
 
 ## License
 

@@ -1,0 +1,20 @@
+ROCk module is loaded
+=====================
+HSA System Attributes
+=====================
+Runtime Version:         1.14
+=====================
+HSA Agents
+=====================
+*******
+Agent 1
+*******
+  Name:                    AMD Ryzen 7 9700X 8-Core Processor
+  Device Type:             CPU
+*******
+Agent 2
+*******
+  Name:                    gfx1201
+  Marketing Name:          AMD Radeon AI PRO R9700
+  Device Type:             GPU
+*** Done ***

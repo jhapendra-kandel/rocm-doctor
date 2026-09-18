@@ -1,0 +1,6 @@
+[    4.812345] amdgpu 0000:03:00.0: amdgpu: detected virtual RAM size 34342961152 bytes
+[    4.912345] amdgpu 0000:03:00.0: amdgpu: VRAM: 32768M
+[    5.012345] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
+[    5.312345] [drm] amdgpu: Display Core initialized successfully
+[    5.412345] amdgpu 0000:03:00.0: amdgpu: SE 4, SH per SE 2, CU per SH 10, active_cu_number 40
+[    5.512345] amdgpu: probe of 0000:03:00.0 succeeded

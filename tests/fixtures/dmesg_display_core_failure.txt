@@ -1,0 +1,7 @@
+[    4.812345] amdgpu 0000:03:00.0: amdgpu: detected virtual RAM size 34342961152 bytes
+[    4.912345] amdgpu 0000:03:00.0: amdgpu: VRAM: 32768M
+[    5.012345] amdgpu 0000:03:00.0: amdgpu: RAS: optional ras ta ucode is not available
+[    5.112345] [drm] Fatal error during GPU init
+[    5.113000] amdgpu 0000:03:00.0: amdgpu: amdgpu_device_ip_init failed
+[    5.113100] amdgpu 0000:03:00.0: amdgpu: Fatal error during GPU init
+[    5.113200] amdgpu: probe of 0000:03:00.0 failed with error -22

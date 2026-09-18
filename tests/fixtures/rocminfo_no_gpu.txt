@@ -1,0 +1,14 @@
+ROCk module is loaded
+=====================
+HSA System Attributes
+=====================
+Runtime Version:         1.14
+=====================
+HSA Agents
+=====================
+*******
+Agent 1
+*******
+  Name:                    AMD Ryzen 7 9700X 8-Core Processor
+  Device Type:             CPU
+*** Done ***

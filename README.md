@@ -4,8 +4,9 @@ A diagnostic CLI for AMD GPU (ROCm) local LLM serving setups — the "why is my
 GPU not being used" and "why did my driver just die" checks that currently
 take hours of manual `dmesg`/`lspci`/`modprobe.d` spelunking to figure out.
 
-**Status: pre-alpha, planning stage.** See [PLAN.md](PLAN.md) for scope and
-roadmap.
+**Status: pre-alpha, working v0.1.** All 7 checks below are implemented and
+unit-tested (fixture-driven, no real GPU/root needed to run the suite). Not
+yet published to PyPI. See [PLAN.md](PLAN.md) for scope and roadmap.
 
 ## Why this exists
 
@@ -17,23 +18,34 @@ sessions eating 10+ hours. `rocm-doctor` exists to collapse that into a single
 command that tells you *which* known failure mode you're hitting and what to
 run to fix it.
 
-## Planned checks (v0.1)
+## Checks implemented (v0.1)
 
-- Kernel version vs. the HWE/GPU-generation requirement for your card
-- `lspci` GPU detection vs. `rocminfo` agreement (driver bound vs. not)
-- Headless Display-Core init failure signature in `dmesg`
-  (`Fatal error during GPU init`, `error -22`)
-- Leftover `blacklist-amdgpu.conf` from an abandoned `amdgpu-dkms` install
-- Ollama's `OLLAMA_HOST` binding (127.0.0.1 vs 0.0.0.0 — invisible from
-  Docker otherwise)
-- `ollama ps` PROCESSOR column check — silent CPU fallback despite VRAM
-  being free
-- Host-RAM-vs-VRAM headroom check (predicts thrash/swap before you `ollama
-  pull` a model too big for available system RAM)
+- **kernel-version** — flags the Ubuntu 24.04 GA kernel (6.8.x) as risky for
+  very new GPU generations; recommends `linux-generic-hwe-24.04`
+- **display-core-init-failure** — detects the headless (no-monitor) amdgpu
+  Display-Core init failure signature in `dmesg` (`Fatal error during GPU
+  init`) and gives the `dc=0` modprobe fix
+- **blacklist-amdgpu-leftover** — catches a leftover `blacklist-amdgpu.conf`
+  from an abandoned `amdgpu-dkms` install that silently breaks every boot
+- **rocminfo-gpu-agent** — confirms `rocminfo` sees a bound GPU agent
+- **ollama-host-binding** — flags `OLLAMA_HOST` still bound to 127.0.0.1
+  (invisible from inside Docker) and gives the systemd override fix
+- **ollama-processor-fallback** — parses `ollama ps` for the `100% CPU`
+  silent-fallback tell instead of `100% GPU`
+- **ram-vram-headroom** — compares system RAM vs. GPU VRAM and warns when a
+  full-RAM-copy model load is likely to thrash
 
 ## Install
 
-Not published yet — pre-alpha.
+```bash
+git clone https://github.com/jhapendra-kandel/rocm-doctor.git
+cd rocm-doctor
+pip install -e .
+rocm-doctor
+```
+
+Not published to PyPI yet — pre-alpha. Run `rocm-doctor --json` for
+machine-readable output, `rocm-doctor --no-color` for plain text.
 
 ## License
 
